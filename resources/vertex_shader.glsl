@@ -21,7 +21,7 @@ mat3 rotate(float angle)
 
 void main()
 {
-    frag_normal = normal;
+    frag_normal = rotate(time) * normal;
     
     // Rotate vertex
     vec3 p = rotate(time) * position;
