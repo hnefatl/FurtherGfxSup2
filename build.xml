@@ -1,0 +1,20 @@
+<project default="compile">
+    <target name="compile">
+        <mkdir dir="bin"/>
+        <javac srcdir="src" destdir="bin">
+            <classpath>
+                <pathelement path="lib/JOML.jar"/>
+                <pathelement path="lib/lwjgl/jar/lwjgl.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="package" depends="compile">
+        <jar basedir="bin" destfile="2.jar">
+            <manifest>
+                <attribute name="Main-Class" value="gfx.tick3.Tick3"/>
+                <attribute name="Class-Path" value="lib/JOML.jar lib/lwjgl/jar/lwjgl.jar"/>
+            </manifest>
+        </jar>
+    </target>
+</project>

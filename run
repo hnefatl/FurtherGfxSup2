@@ -1,0 +1,2 @@
+#!/bin/bash
+java -cp 2.jar:lib/JOML.jar:lib/lwjgl/jar/lwjgl.jar -Dorg.lwjgl.librarypath=lib/lwjgl/native gfx.tick3.Tick3
