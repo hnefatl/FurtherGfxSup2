@@ -52,6 +52,8 @@ public class OpenGLApplication {
     private final String VSHADER_FN = "resources/vertex_shader.glsl";
     private final String FSHADER_FN = "resources/fragment_shader.glsl";
 
+    private long startTime = -1;
+
     // OpenGL setup - do not touch this method!
     public void initializeOpenGL() {
 
@@ -271,12 +273,27 @@ public class OpenGLApplication {
         mvp_matrix = new Matrix4f(camera.getProjectionMatrix()).mul(camera.getViewMatrix());
 
         int mvp_location = glGetUniformLocation(shaders.getHandle(), "mvp_matrix");
-        FloatBuffer mvp_buffer = BufferUtils.createFloatBuffer(16);
-        mvp_matrix.get(mvp_buffer);
-        glUniformMatrix4fv(mvp_location, false, mvp_buffer);
+        if (mvp_location != -1)
+        {
+            FloatBuffer mvp_buffer = BufferUtils.createFloatBuffer(16);
+            mvp_matrix.get(mvp_buffer);
+            glUniformMatrix4fv(mvp_location, false, mvp_buffer);
+        }
 				
-		int camera_loc = glGetUniformLocation(shaders.getHandle(), "camera");
-		glUniform3f(camera_loc, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+        int camera_loc = glGetUniformLocation(shaders.getHandle(), "camera");
+        if (camera_loc != -1)
+            glUniform3f(camera_loc, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+
+        // Add time attribute
+        int time_location = glGetUniformLocation(shaders.getHandle(), "time");
+        if (time_location != -1)
+        {
+            if (startTime == -1)
+                startTime = System.currentTimeMillis();
+
+            float seconds = ((float)(System.currentTimeMillis() - startTime)) / 1000f;
+            glUniform1f(time_location, seconds);
+        }
 		
         // Step 2: Clear the buffer
 
