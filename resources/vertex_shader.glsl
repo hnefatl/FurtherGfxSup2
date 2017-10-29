@@ -9,6 +9,8 @@ uniform mat4 mvp_matrix;    // model-view-projection matrix
 
 uniform float time;
 
+varying vec3 world_position;
+
 mat3 rotate(float angle)
 {
     float s = sin(angle);
@@ -21,10 +23,11 @@ mat3 rotate(float angle)
 
 void main()
 {
-    frag_normal = normal;
-    
     // Rotate vertex
     vec3 p = rotate(time) * position;
+
+    frag_normal = rotate(time) * normal;
+    world_position = p;
 
     // Project vertex
     gl_Position = mvp_matrix * vec4(p, 1.0);
