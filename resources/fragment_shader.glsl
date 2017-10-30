@@ -10,6 +10,7 @@ uniform mat4 mvp_matrix;    // model-view-projection matrix
 
 varying vec3 world_position;
 
+// Shader test here: https://www.shadertoy.com/view/Mt2cRK
 void main()
 {
     const vec3 BLACK = vec3(0, 0, 0);
@@ -22,22 +23,22 @@ void main()
     // Determine the correct colour of the surface
     const float brickHeight = 0.125;
     const float brickWidth = 0.25;
-    const float edgeWidth = 0.05;
+    const float edgeWidth = 0.01;
     vec3 surfaceColour;
 
-    float yMod = mod(uv.y, brickHeight)
+    float yMod = mod(uv.y, brickHeight);
     float xMod = mod(uv.x, brickWidth);
-    int row = (int)(uv.y / brickHeight);
+    int row = int(uv.y / brickHeight);
     if (row % 2 == 1) // Odd row, offset
-        xMod += brickWidth / 2;
+        xMod = mod(brickWidth / 2.0, brickWidth);
 
     if (yMod <= edgeWidth || yMod >= brickHeight - edgeWidth ||
         xMod <= edgeWidth || xMod >= brickWidth - edgeWidth)
     {
-        surfaceColour = MORTAR;
+        surfaceColour = vec4(MORTAR, 1);
     }
     else
-        surfaceColour = BRICK;
+        surfaceColour = vec4(BRICK, 1);
 
     // Apply shading using the correct colour
     colour = BLACK;
