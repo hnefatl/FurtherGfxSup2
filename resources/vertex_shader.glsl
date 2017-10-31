@@ -27,7 +27,7 @@ void main()
     vec3 p = rotate(time) * position;
 
     frag_normal = rotate(time) * normal;
-    world_position = p;
+    world_position = position;
 
     // Project vertex
     gl_Position = mvp_matrix * vec4(p, 1.0);

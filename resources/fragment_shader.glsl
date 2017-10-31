@@ -13,14 +13,13 @@ void main()
 {
     const vec3 BLACK = vec3(0, 0, 0);
 
-    // Radius of a circle whose exterior matches the wires of the cube
-    const float circleRadius = 1.379;
-    if (length(world_position.xy) >= circleRadius ||
-        length(world_position.yz) >= circleRadius ||
-        length(world_position.xz) >= circleRadius)
-    {
-        colour = world_position;
-    }
+    int incidentEdges = 0;
+    incidentEdges += abs(world_position.x) >= 0.9 ? 1 : 0;
+    incidentEdges += abs(world_position.y) >= 0.9 ? 1 : 0;
+    incidentEdges += abs(world_position.z) >= 0.9 ? 1 : 0;
+
+    if (incidentEdges >= 2)        
+        colour = BLACK;
     else
         discard;
 }
