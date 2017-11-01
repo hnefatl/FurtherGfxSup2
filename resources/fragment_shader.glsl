@@ -18,7 +18,7 @@ void main()
     incidentEdges += abs(world_position.y) >= 0.9 ? 1 : 0;
     incidentEdges += abs(world_position.z) >= 0.9 ? 1 : 0;
 
-    if (incidentEdges >= 2)        
+    if (incidentEdges >= 2)
         colour = BLACK;
     else
         discard;

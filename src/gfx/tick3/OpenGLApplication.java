@@ -81,7 +81,7 @@ public class OpenGLApplication {
         glfwSwapInterval(1);
 
         // Cull back-faces of polygons
-        glEnable(GL_CULL_FACE);
+        glDisable(GL_CULL_FACE);
         glCullFace(GL_BACK);
 
         // Do depth comparisons when rendering
@@ -140,7 +140,7 @@ public class OpenGLApplication {
                 } else if (key == GLFW_KEY_S && action == GLFW_RELEASE) {
                     takeScreenshot("screenshot.png");
                 } else if (action == GLFW_RELEASE) {
-                    glEnable(GL_CULL_FACE);
+                    glDisable(GL_CULL_FACE);
                     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                 }
             }
